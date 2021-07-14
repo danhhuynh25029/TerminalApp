@@ -44,7 +44,7 @@ def getMemory():
     print("Memory usage : ",round(a[1]/a[0],2)*100,"%")
 def main():
     ap = argparse.ArgumentParser(description="Terminal app")
-    ap.add_argument("name",help="choose name country information covid19 (name/all)")
+    ap.add_argument("name",help="choose name country information covid19 (name/all)",default="all",nargs="?")
     #ap.add_argument("number",help="choose number country information covid19")
     ap.add_argument("-m","--memory",action="store_true",help="Memory usage")
     ap.add_argument("-t","--time",action="store_true",help="Datetime")
@@ -61,6 +61,7 @@ def main():
     elif args["weather"] == True:
         getWeather()
     elif args["covid"] == True:
+        #print(args["name"])
         getCovid(args["name"])
 if __name__ == "__main__":
     main()
