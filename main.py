@@ -5,7 +5,7 @@ from prettytable import PrettyTable
 def comment():
     return '''
     Usage : main.py name [-c | --covid]
-                    ex : VN -c/--covid | all -c/--covid
+                    ex : VN -c | VN --covid || all -c | all --covid
             main.py [ -h | --help]
             main.py [ -w | --weather]
             main.py [ -t | --time]
