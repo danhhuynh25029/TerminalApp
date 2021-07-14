@@ -2,8 +2,14 @@ import argparse
 import os
 import requests
 from prettytable import PrettyTable
-def Print():
-    pass
+def comment():
+    return '''
+    Usage : main.py name [-c | --covid]
+                    ex : VN -c/--covid | all -c/--covid
+            main.py [ -h | --help]
+            main.py [ -w | --weather]
+            main.py [ -t | --time]
+            main.py [ -m | --memory]'''
 def getCovid(country):
     data = requests.get("https://api.covid19api.com/summary")
     json = data.json()
@@ -43,7 +49,7 @@ def getMemory():
     a = list(map(int,memoryUsage.split()[1:]))
     print("Memory usage : ",round(a[1]/a[0],2)*100,"%")
 def main():
-    ap = argparse.ArgumentParser(description="Terminal app")
+    ap = argparse.ArgumentParser(description="Terminal app",usage=comment())
     ap.add_argument("name",help="choose name country information covid19 (name/all)",default="all",nargs="?")
     #ap.add_argument("number",help="choose number country information covid19")
     ap.add_argument("-m","--memory",action="store_true",help="Memory usage")
