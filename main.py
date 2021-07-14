@@ -11,7 +11,13 @@ def getCovid():
             print("{}\t{}\t{}".format(i["Country"],i["TotalConfirmed"],i["TotalDeaths"]))
             break
 def getWeather():
-    pass
+    myKey = "e90072222e60645e2f9ed2949daec557"
+    data = requests.get("https://api.openweathermap.org/data/2.5/weather?q=Tra%20Vinh&appid="+myKey)
+    json = data.json()
+    weather = json["weather"]
+    temp = json["main"]
+    print("City\tdescription\ttemp")
+    print("{}\t{}\t{}".format(json["name"],weather[0]["description"],str(temp["temp"]/10)))
 def getMemory():
     cpu = os.popen("free -t -m").readlines()[-1]
     a = list(map(int,cpu.split()[1:]))
