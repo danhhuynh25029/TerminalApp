@@ -5,9 +5,10 @@ from prettytable import PrettyTable
 def comment():
     return '''
     Usage : main.py n [-c | --covid]
-                    ex : VN -c | VN --covid || all -c | all --covid
+                    ex : VN -c | VN --covid
             main.py [ -h | --help]
             main.py [ -w | --weather]
+                    ex : -w Tra_Vinh
             main.py [ -t | --time]
             main.py [ -m | --memory]'''
 def getCovid(country):
@@ -29,9 +30,11 @@ def getCovid(country):
         else: 
             tb.add_row([i["Country"],i["TotalConfirmed"],i["TotalDeaths"]])
             print(tb)
-def getWeather():
+def getWeather(city):
+    city = city.replace("_","%20")
+    #print(city)
     myKey = "e90072222e60645e2f9ed2949daec557"
-    data = requests.get("https://api.openweathermap.org/data/2.5/weather?q=Tra%20Vinh&appid="+myKey)
+    data = requests.get("https://api.openweathermap.org/data/2.5/weather?q={}&appid={}".format(city,myKey))
     json = data.json()
     weather = json["weather"]
     #print(weather[0]["description"])
@@ -51,10 +54,11 @@ def getMemory():
 def main():
     ap = argparse.ArgumentParser(description="Terminal app",usage=comment())
     ap.add_argument("n",help="choose name country information covid19 (name/all)",default="all",nargs="?")
+    #ap.add_argument("city",help="weather of city",default="Tra Vinh",nargs="?")
     #ap.add_argument("number",help="choose number country information covid19")
     ap.add_argument("-m","--memory",action="store_true",help="Memory usage")
-    ap.add_argument("-t","--time",action="store_true",help="Datetime")
-    ap.add_argument("-w","--weather",action="store_true",help="Weather")
+    ap.add_argument("-t","--time",action="store_true",help="Datetime now")
+    ap.add_argument("-w",help="Weather in your city",dest=" WEATHER")
     ap.add_argument("-c","--covid",action="store_true",help="Information covid")
     args = vars(ap.parse_args())
     #print(args)
@@ -64,8 +68,9 @@ def main():
     elif args["time"] == True:
         s = os.popen("date").readline()[:-1]
         print("Datetime now : ",s)
-    elif args["weather"] == True:
-        getWeather()
+    elif args[" WEATHER"] != None:
+        #print(args["weather"])
+        getWeather(args[" WEATHER"])
     elif args["covid"] == True:
         #print(args["name"])
         getCovid(args["n"])
