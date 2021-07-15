@@ -3,7 +3,7 @@
 ### How to install:
 <pre> pip install -r requirements.txt</pre>
 ### How to use:
-<pre> python main.py -h</pre>
+<pre> python program.py -h</pre>
 ### Some image:
 <p align='center'>
 
