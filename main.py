@@ -4,7 +4,7 @@ import requests
 from prettytable import PrettyTable
 def comment():
     return '''
-    Usage : main.py name [-c | --covid]
+    Usage : main.py n [-c | --covid]
                     ex : VN -c | VN --covid || all -c | all --covid
             main.py [ -h | --help]
             main.py [ -w | --weather]
@@ -50,7 +50,7 @@ def getMemory():
     print("Memory usage : ",round(a[1]/a[0],2)*100,"%")
 def main():
     ap = argparse.ArgumentParser(description="Terminal app",usage=comment())
-    ap.add_argument("name",help="choose name country information covid19 (name/all)",default="all",nargs="?")
+    ap.add_argument("n",help="choose name country information covid19 (name/all)",default="all",nargs="?")
     #ap.add_argument("number",help="choose number country information covid19")
     ap.add_argument("-m","--memory",action="store_true",help="Memory usage")
     ap.add_argument("-t","--time",action="store_true",help="Datetime")
@@ -68,6 +68,6 @@ def main():
         getWeather()
     elif args["covid"] == True:
         #print(args["name"])
-        getCovid(args["name"])
+        getCovid(args["n"])
 if __name__ == "__main__":
     main()
